@@ -1,5 +1,7 @@
-const os = require('os'); //importando um modulo "os" do node.js
-
+//importando um modulos
+const os = require('os') 
+const fs = require('fs')
+const log = require('./logger')
 
 setInterval(() => {
 
@@ -17,7 +19,7 @@ setInterval(() => {
     
     const percents = parseInt((mem / total) * 100) //calculo de porcentagem da memoria total
     
-    //objeto contendo todas as informações necessarias já formatada
+    //objeto contendo todas as informações necessarias já formatadas
     const stats = {
         Free: `${mem}MB`, 
         Total: `${total}MB`, 
@@ -26,4 +28,6 @@ setInterval(() => {
     console.clear()
     console.log("======= PC STATS ======")
     console.table(stats)
+
+    log(`${JSON.stringify(stats)}\n`)
 }, 1000)
