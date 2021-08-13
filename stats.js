@@ -5,7 +5,7 @@ const log = require('./logger')
 
 setInterval(() => {
 
-    const { freemem, totalmem } = os;
+    const { cpus, freemem, totalmem, platform, userInfo } = os;
 
     /*
     que é exatamente a mesma coisa que: 
@@ -18,12 +18,24 @@ setInterval(() => {
     const total = parseInt(totalmem() / 1024 / 1024) //convertendo 
     
     const percents = parseInt((mem / total) * 100) //calculo de porcentagem da memoria total
+
+    //acessando informações da máquina     
+    const userinf = userInfo()
+    const userName = userinf.username
     
-    //objeto contendo todas as informações necessarias já formatadas
+    const CPUs = cpus();
+    const cpu = CPUs[0].model;
+    const core = CPUs.length;
+   
+    //objeto contendo todas as informações necessárias já formatadas
     const stats = {
-        Free: `${mem}MB`, 
-        Total: `${total}MB`, 
-        Usage: `${percents}%`
+        User: `${userName}`,
+        Plataform: `${platform}`,
+        FreeM: `${mem} MB`, 
+        TotalM: `${total} MB`, 
+        UsageM: `${percents}%`,
+        Core: `${core}`,
+        CPU: `${cpu}`
     } 
     console.clear()
     console.log("======= PC STATS ======")
